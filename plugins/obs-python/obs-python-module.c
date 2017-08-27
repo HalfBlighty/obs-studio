@@ -16,7 +16,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 ********************************************************************************/
 
+#if defined(_WIN32) && defined(_DEBUG)
+#undef _DEBUG
 #include <Python.h>
+#define _DEBUG 1
+#else
+#include <Python.h>
+#endif
 
 #include "obs-python-module.h"
 
@@ -46,11 +52,7 @@ const char* obs_module_description(void)
 
 // Check windows
 #ifdef _WIN32
-# ifdef _DEBUG
-#  define PYTHON_SHARED_LIBRARY_NAME "python" STR(PY_MAJOR_VERSION) "_d.dll"
-# else
-#  define PYTHON_SHARED_LIBRARY_NAME "python" STR(PY_MAJOR_VERSION) ".dll"
-# endif
+# define PYTHON_SHARED_LIBRARY_NAME "python" STR(PY_MAJOR_VERSION) ".dll"
 # ifdef _WIN64
 #  define PLUGINARCH "/64bit"
 # else
