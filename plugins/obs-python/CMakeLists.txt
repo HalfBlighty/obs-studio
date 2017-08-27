@@ -28,15 +28,15 @@ set(obs-python_SOURCES
 add_library(obs-python SHARED
 	${obs-python_SOURCES})
 
-string(REGEX REPLACE "_d" "" RELEASE_PYTHON_LIBRARIES "${PYTHON_LIBRARIES}")
+string(REGEX REPLACE "_d" "" PYTHON_LIBRARIES "${PYTHON_LIBRARIES}")
 
 target_link_libraries(obs-python
 	libobs
-	${RELEASE_PYTHON_LIBRARIES})
+	${PYTHON_LIBRARIES})
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 
-add_definitions(-DSWIG_TYPE_TABLE=obspython)
+add_definitions(-DSWIG_TYPE_TABLE=obspython -DSWIG_PYTHON_INTERPRETER_NO_DEBUG)
 add_subdirectory(swig)
 
 set(SWIG_RUNTIME swig/swigpyrun.h)
